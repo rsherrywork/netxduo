@@ -8226,19 +8226,24 @@ INT                     ret;
     suspend_request.nx_bsd_socket_suspend_actual_flags =  0;
 
     if(readfds)
-        suspend_request.nx_bsd_socket_suspend_read_fd_set =  *readfds;
+        suspend_request.nx_bsd_socket_suspend_read_request_fd_set =  *readfds;
     else
-        NX_BSD_FD_ZERO(&suspend_request.nx_bsd_socket_suspend_read_fd_set);
+        NX_BSD_FD_ZERO(&suspend_request.nx_bsd_socket_suspend_read_request_fd_set);
 
     if(writefds)
-        suspend_request.nx_bsd_socket_suspend_write_fd_set = *writefds;
+        suspend_request.nx_bsd_socket_suspend_write_request_fd_set = *writefds;
     else
-        NX_BSD_FD_ZERO(&suspend_request.nx_bsd_socket_suspend_write_fd_set);
+        NX_BSD_FD_ZERO(&suspend_request.nx_bsd_socket_suspend_write_request_fd_set);
 
     if(exceptfds)
-        suspend_request.nx_bsd_socket_suspend_exception_fd_set = *exceptfds;
+        suspend_request.nx_bsd_socket_suspend_exception_request_fd_set = *exceptfds;
     else
-        NX_BSD_FD_ZERO(&suspend_request.nx_bsd_socket_suspend_exception_fd_set);
+        NX_BSD_FD_ZERO(&suspend_request.nx_bsd_socket_suspend_exception_request_fd_set);
+
+    /* Clear the actual fd sets, which will be set in nx_bsd_select_wakeup(). */
+    NX_BSD_FD_ZERO(&suspend_request.nx_bsd_socket_suspend_read_fd_set);
+    NX_BSD_FD_ZERO(&suspend_request.nx_bsd_socket_suspend_write_fd_set);
+    NX_BSD_FD_ZERO(&suspend_request.nx_bsd_socket_suspend_exception_fd_set);
 
     /* Temporarily disable preemption.  */
     tx_thread_preemption_change(current_thread_ptr, 0, &original_threshold);
@@ -10242,20 +10247,17 @@ TX_THREAD       *current_thread_ptr;
 static VOID nx_bsd_select_wakeup(UINT sock_id, UINT fd_sets)
 {
 TX_INTERRUPT_SAVE_AREA
-nx_bsd_fd_set           local_fd;
 TX_THREAD               *suspended_thread;
 ULONG                   suspended_count;
 ULONG                   original_suspended_count;
 NX_BSD_SOCKET_SUSPEND   *suspend_info;
+INT                     bsd_sock_id;
 
 
     /* At this point the thread should NOT own the IP mutex, and it must own the
        BSD mutex. */
 
-
-    NX_BSD_FD_ZERO(&local_fd);
-    NX_BSD_FD_SET((INT)sock_id + NX_BSD_SOCKFD_START, &local_fd);
-
+    bsd_sock_id = (INT)sock_id + NX_BSD_SOCKFD_START;
     /* Disable interrupts temporarily.  */
     TX_DISABLE
 
@@ -10280,11 +10282,19 @@ NX_BSD_SOCKET_SUSPEND   *suspend_info;
             suspend_info =  (NX_BSD_SOCKET_SUSPEND *) suspended_thread -> tx_thread_additional_suspend_info;
 
             /* Now determine if this thread was waiting for this socket.  */
-            if ((fd_sets & FDSET_READ) && (NX_BSD_FD_ISSET((INT)sock_id + NX_BSD_SOCKFD_START, &suspend_info -> nx_bsd_socket_suspend_read_fd_set)))
+            if ((fd_sets & FDSET_READ) && (NX_BSD_FD_ISSET(bsd_sock_id, &suspend_info -> nx_bsd_socket_suspend_read_request_fd_set)))
             {
+                NX_BSD_FD_SET(bsd_sock_id, &suspend_info -> nx_bsd_socket_suspend_read_fd_set);
 
-                /* Copy the local fd over so that the return shows the receive socket.  */
-                suspend_info -> nx_bsd_socket_suspend_read_fd_set = local_fd;
+                /* Adjust the suspension type so that the event flag set below will wakeup the thread 
+                   selecting.  */
+                suspended_thread -> tx_thread_suspend_info =  NX_BSD_RECEIVE_EVENT;
+            }
+
+            /* Now determine if this thread was waiting for this socket.  */
+            if ((fd_sets & FDSET_WRITE) && (NX_BSD_FD_ISSET(bsd_sock_id, &suspend_info -> nx_bsd_socket_suspend_write_request_fd_set)))
+            {
+                NX_BSD_FD_SET(bsd_sock_id, &suspend_info -> nx_bsd_socket_suspend_write_fd_set);
 
                 /* Adjust the suspension type so that the event flag set below will wakeup the thread
                    selecting.  */
@@ -10292,52 +10302,13 @@ NX_BSD_SOCKET_SUSPEND   *suspend_info;
             }
 
             /* Now determine if this thread was waiting for this socket.  */
-            if ((fd_sets & FDSET_WRITE) && (NX_BSD_FD_ISSET((INT)sock_id + NX_BSD_SOCKFD_START, &suspend_info -> nx_bsd_socket_suspend_write_fd_set)))
+            if ((fd_sets & FDSET_EXCEPTION) && (NX_BSD_FD_ISSET(bsd_sock_id, &suspend_info -> nx_bsd_socket_suspend_exception_request_fd_set)))
             {
-
-                /* Copy the local fd over so that the return shows the receive socket.  */
-                suspend_info -> nx_bsd_socket_suspend_write_fd_set = local_fd;
+                NX_BSD_FD_SET(bsd_sock_id, &suspend_info -> nx_bsd_socket_suspend_exception_fd_set);
 
                 /* Adjust the suspension type so that the event flag set below will wakeup the thread
                    selecting.  */
                 suspended_thread -> tx_thread_suspend_info =  NX_BSD_RECEIVE_EVENT;
-            }
-
-            /* Now determine if this thread was waiting for this socket.  */
-            if ((fd_sets & FDSET_EXCEPTION) && (NX_BSD_FD_ISSET((INT)sock_id + NX_BSD_SOCKFD_START, &suspend_info -> nx_bsd_socket_suspend_exception_fd_set)))
-            {
-
-                /* Copy the local fd over so that the return shows the receive socket.  */
-                suspend_info -> nx_bsd_socket_suspend_exception_fd_set = local_fd;
-
-                /* Adjust the suspension type so that the event flag set below will wakeup the thread
-                   selecting.  */
-                suspended_thread -> tx_thread_suspend_info =  NX_BSD_RECEIVE_EVENT;
-            }
-
-            /* Clear FD that is not set. */
-            if (suspended_thread -> tx_thread_suspend_info == NX_BSD_RECEIVE_EVENT)
-            {
-                if (!(fd_sets & FDSET_READ) && (NX_BSD_FD_ISSET((INT)sock_id + NX_BSD_SOCKFD_START, &suspend_info -> nx_bsd_socket_suspend_read_fd_set)))
-                {
-
-                    /* Clear read FD. */
-                    NX_BSD_FD_CLR((INT)sock_id + NX_BSD_SOCKFD_START, &suspend_info -> nx_bsd_socket_suspend_read_fd_set);
-                }
-
-                if (!(fd_sets & FDSET_WRITE) && (NX_BSD_FD_ISSET((INT)sock_id + NX_BSD_SOCKFD_START, &suspend_info -> nx_bsd_socket_suspend_write_fd_set)))
-                {
-
-                    /* Clear write FD. */
-                    NX_BSD_FD_CLR((INT)sock_id + NX_BSD_SOCKFD_START, &suspend_info -> nx_bsd_socket_suspend_write_fd_set);
-                }
-
-                if (!(fd_sets & FDSET_EXCEPTION) && (NX_BSD_FD_ISSET((INT)sock_id + NX_BSD_SOCKFD_START, &suspend_info -> nx_bsd_socket_suspend_exception_fd_set)))
-                {
-
-                    /* Clear exception FD. */
-                    NX_BSD_FD_CLR((INT)sock_id + NX_BSD_SOCKFD_START, &suspend_info -> nx_bsd_socket_suspend_exception_fd_set);
-                }
             }
         }
 
