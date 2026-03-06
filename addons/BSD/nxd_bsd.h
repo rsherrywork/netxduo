@@ -708,6 +708,9 @@ typedef struct FD_SET_STRUCT                /* The select socket array manager. 
 typedef struct NX_BSD_SOCKET_SUSPEND_STRUCT
 {
     ULONG               nx_bsd_socket_suspend_actual_flags;
+    nx_bsd_fd_set       nx_bsd_socket_suspend_read_request_fd_set;
+    nx_bsd_fd_set       nx_bsd_socket_suspend_write_request_fd_set;
+    nx_bsd_fd_set       nx_bsd_socket_suspend_exception_request_fd_set;
     nx_bsd_fd_set       nx_bsd_socket_suspend_read_fd_set;
     nx_bsd_fd_set       nx_bsd_socket_suspend_write_fd_set;
     nx_bsd_fd_set       nx_bsd_socket_suspend_exception_fd_set;
