@@ -831,7 +831,7 @@ UINT            compute_checksum = 1;
                 else
                 {
                     send_packet -> nx_packet_prepend_ptr += sizeof(NX_TCP_HEADER);
-                    send_packet -> nx_packet_length -= sizeof(NX_TCP_HEADER);
+                    send_packet -> nx_packet_length -= (ULONG)sizeof(NX_TCP_HEADER);
                 }
 
                 /* Regain exclusive access to IP instance. */
@@ -934,7 +934,7 @@ UINT            compute_checksum = 1;
 #endif /* NX_ENABLE_VLAN */
 
             /* If trace is enabled, insert this event into the trace buffer.  */
-            NX_TRACE_IN_LINE_INSERT(NX_TRACE_INTERNAL_TCP_DATA_SEND, ip_ptr, socket_ptr, send_packet, socket_ptr -> nx_tcp_socket_tx_sequence - (send_packet -> nx_packet_length - sizeof(NX_TCP_HEADER)), NX_TRACE_INTERNAL_EVENTS, 0, 0);
+            NX_TRACE_IN_LINE_INSERT(NX_TRACE_INTERNAL_TCP_DATA_SEND, ip_ptr, socket_ptr, send_packet, socket_ptr -> nx_tcp_socket_tx_sequence - (send_packet -> nx_packet_length - (ULONG)sizeof(NX_TCP_HEADER)), NX_TRACE_INTERNAL_EVENTS, 0, 0);
 
             /* Send the TCP packet to the IP component.  */
 #ifndef NX_DISABLE_IPV4
