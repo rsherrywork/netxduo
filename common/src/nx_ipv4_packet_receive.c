@@ -1,11 +1,11 @@
 /***************************************************************************
- * Copyright (c) 2024 Microsoft Corporation 
+ * Copyright (c) 2024 Microsoft Corporation
  * Copyright (c) 2025-present Eclipse ThreadX Contributors
- * 
+ *
  * This program and the accompanying materials are made available under the
  * terms of the MIT License which is available at
  * https://opensource.org/licenses/MIT.
- * 
+ *
  * SPDX-License-Identifier: MIT
  **************************************************************************/
 
@@ -72,18 +72,6 @@
 /*                                                                        */
 /*    Application I/O Driver                                              */
 /*                                                                        */
-/*  RELEASE HISTORY                                                       */
-/*                                                                        */
-/*    DATE              NAME                      DESCRIPTION             */
-/*                                                                        */
-/*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
-/*  09-30-2020     Yuxin Zhou               Modified comment(s),          */
-/*                                            resulting in version 6.1    */
-/*  10-31-2023     Tiejun Zhou              Modified comment(s),          */
-/*                                            validated packet length for */
-/*                                            fragments,                  */
-/*                                            resulting in version 6.3.0  */
-/*                                                                        */
 /**************************************************************************/
 VOID  _nx_ipv4_packet_receive(NX_IP *ip_ptr, NX_PACKET *packet_ptr)
 {
@@ -116,7 +104,7 @@ UINT            packet_consumed;
     compute_checksum = 0;
 #endif /* NX_DISABLE_IP_RX_CHECKSUM */
 
-    /* GHSA-cf2g-j6vv-m8c5 
+    /* GHSA-cf2g-j6vv-m8c5
        Validate that the payload length is at least the size of the IPv4 header. */
     if(packet_ptr -> nx_packet_length < sizeof(NX_IPV4_HEADER))
     {

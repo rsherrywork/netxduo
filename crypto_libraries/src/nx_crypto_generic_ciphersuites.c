@@ -1,11 +1,11 @@
 /***************************************************************************
- * Copyright (c) 2024 Microsoft Corporation 
+ * Copyright (c) 2024 Microsoft Corporation
  * Copyright (c) 2025-present Eclipse ThreadX Contributors
- * 
+ *
  * This program and the accompanying materials are made available under the
  * terms of the MIT License which is available at
  * https://opensource.org/licenses/MIT.
- * 
+ *
  * SPDX-License-Identifier: MIT
  **************************************************************************/
 
@@ -56,28 +56,6 @@
 /*  CALLED BY                                                             */
 /*                                                                        */
 /*    Application Code                                                    */
-/*                                                                        */
-/*  RELEASE HISTORY                                                       */
-/*                                                                        */
-/*    DATE              NAME                      DESCRIPTION             */
-/*                                                                        */
-/*  05-19-2020     Timothy Stapko           Initial Version 6.0           */
-/*  09-30-2020     Timothy Stapko           Modified comment(s), added    */
-/*                                            curves in the crypto array, */
-/*                                            added TLS ciphersuite entry,*/
-/*                                            resulting in version 6.1    */
-/*  04-25-2022     Yuxin Zhou               Modified comment(s), added    */
-/*                                            x25519 and x448 curves,     */
-/*                                            resulting in version 6.1.11 */
-/*  07-29-2022     Yuxin Zhou               Modified comment(s),          */
-/*                                            added x448 curves,          */
-/*                                            resulting in version 6.1.12 */
-/*  10-31-2022     Yanwu Cai                Modified comment(s),          */
-/*                                            resulting in version 6.2.0  */
-/*  03-08-2023     Yanwu Cai                Modified comment(s),          */
-/*                                            fixed compiler errors when  */
-/*                                            x509 is disabled,           */
-/*                                            resulting in version 6.2.1  */
 /*                                                                        */
 /**************************************************************************/
 

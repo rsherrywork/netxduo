@@ -1,11 +1,11 @@
 /***************************************************************************
- * Copyright (c) 2024 Microsoft Corporation 
+ * Copyright (c) 2024 Microsoft Corporation
  * Copyright (c) 2025-present Eclipse ThreadX Contributors
- * 
+ *
  * This program and the accompanying materials are made available under the
  * terms of the MIT License which is available at
  * https://opensource.org/licenses/MIT.
- * 
+ *
  * SPDX-License-Identifier: MIT
  **************************************************************************/
 
@@ -86,16 +86,6 @@ static UCHAR decrypted_signature[512];
 /*                                                                        */
 /*    _nx_secure_tls_process_server_key_exchange                          */
 /*                                          Process ServerKeyExchange     */
-/*                                                                        */
-/*  RELEASE HISTORY                                                       */
-/*                                                                        */
-/*    DATE              NAME                      DESCRIPTION             */
-/*                                                                        */
-/*  10-31-2022     Yanwu Cai                Initial Version 6.2.0         */
-/*  03-08-2023     Yanwu Cai                Modified comment(s),          */
-/*                                            fixed compiler errors when  */
-/*                                            x509 is disabled,           */
-/*                                            resulting in version 6.2.1  */
 /*                                                                        */
 /**************************************************************************/
 UINT _nx_secure_process_server_key_exchange(const NX_SECURE_TLS_CIPHERSUITE_INFO *ciphersuite, NX_SECURE_TLS_CRYPTO *tls_crypto_table,
@@ -267,7 +257,9 @@ UINT                                  i;
 
         current_buffer = &packet_buffer[3];
 
+#ifdef NX_SECURE_ENABLE_PSK_CIPHERSUITES
         if(auth_method ->nx_crypto_algorithm != NX_CRYPTO_KEY_EXCHANGE_PSK)
+#endif
         {
         	/* Get reference to remote server certificate so we can get the public key for signature verification. */
         	status = _nx_secure_x509_remote_endpoint_certificate_get(&tls_credentials -> nx_secure_tls_certificate_store,
@@ -295,10 +287,13 @@ UINT                                  i;
 #endif /* NX_SECURE_ENABLE_DTLS */
         {
  		#ifdef NX_SECURE_ENABLE_PSK_CIPHERSUITES
-			if ((UINT)6 + tls_credentials -> nx_secure_tls_remote_psk_id_size > message_length)
-		#else
-			if ((UINT)key_length + 8 > message_length)
-		#endif
+            if (((auth_method->nx_crypto_algorithm == NX_CRYPTO_KEY_EXCHANGE_PSK) &&
+                 ((UINT)6 + tls_credentials -> nx_secure_tls_remote_psk_id_size > message_length)) ||
+                ((auth_method->nx_crypto_algorithm != NX_CRYPTO_KEY_EXCHANGE_PSK) &&
+                 ((UINT)key_length + 8 > message_length)))
+#else
+            if ((UINT)key_length + 8 > message_length)
+#endif
             {
                 return(NX_SECURE_TLS_INCORRECT_MESSAGE_LENGTH);
             }
@@ -317,15 +312,20 @@ UINT                                  i;
 #endif /* NX_SECURE_TLS_TLS_1_0_ENABLED || NX_SECURE_TLS_TLS_1_1_ENABLED */
         {
  		#ifdef NX_SECURE_ENABLE_PSK_CIPHERSUITES
-			if ((UINT)6 + tls_credentials -> nx_secure_tls_remote_psk_id_size > message_length)
-		#else
-			if ((UINT)key_length + 8 > message_length)
-		#endif
+            if (((auth_method->nx_crypto_algorithm == NX_CRYPTO_KEY_EXCHANGE_PSK) &&
+                 ((UINT)6 + tls_credentials -> nx_secure_tls_remote_psk_id_size > message_length)) ||
+                ((auth_method->nx_crypto_algorithm != NX_CRYPTO_KEY_EXCHANGE_PSK) &&
+                 ((UINT)key_length + 8 > message_length)))
+#else
+            if ((UINT)key_length + 8 > message_length)
+#endif
             {
                 return(NX_SECURE_TLS_INCORRECT_MESSAGE_LENGTH);
             }
 
+#ifdef NX_SECURE_ENABLE_PSK_CIPHERSUITES
             if(auth_method ->nx_crypto_algorithm != NX_CRYPTO_KEY_EXCHANGE_PSK)
+#endif
             {
             	hash_algorithm = current_buffer[0];
             	signature_algorithm = current_buffer[1];
@@ -333,7 +333,9 @@ UINT                                  i;
             }
         }
 
+#ifdef NX_SECURE_ENABLE_PSK_CIPHERSUITES
         if(auth_method ->nx_crypto_algorithm != NX_CRYPTO_KEY_EXCHANGE_PSK)
+#endif
         {
         	/* Find out the hash algorithm used for the signature. */
         	/* Map signature algorithm to internal ID. */
