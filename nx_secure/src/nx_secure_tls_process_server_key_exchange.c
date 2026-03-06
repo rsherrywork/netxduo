@@ -96,9 +96,12 @@ UINT                                  status;
 #if defined(NX_SECURE_ENABLE_PSK_CIPHERSUITES) || defined(NX_SECURE_ENABLE_ECJPAKE_CIPHERSUITE) || \
    (defined(NX_SECURE_ENABLE_ECC_CIPHERSUITE))
 const NX_SECURE_TLS_CIPHERSUITE_INFO *ciphersuite;
-UINT								  auth_algorithm;
-NX_SECURE_TLS_CLIENT_STATE			  client_state;
-#endif /* defined(NX_SECURE_ENABLE_PSK_CIPHERSUITES) || defined(NX_SECURE_ENABLE_ECJPAKE_CIPHERSUITE) */
+#if defined(NX_SECURE_ENABLE_ECC_CIPHERSUITE)
+UINT                                  auth_algorithm;
+NX_SECURE_TLS_CLIENT_STATE            client_state;
+#endif /* defined(NX_SECURE_ENABLE_ECC_CIPHERSUITE) */
+#endif /* defined(NX_SECURE_ENABLE_PSK_CIPHERSUITES) || defined(NX_SECURE_ENABLE_ECJPAKE_CIPHERSUITE) || \
+          defined(NX_SECURE_ENABLE_ECC_CIPHERSUITE) */
 
 #if defined(NX_SECURE_ENABLE_PSK_CIPHERSUITES) || defined(NX_SECURE_ENABLE_ECJPAKE_CIPHERSUITE) || \
    (defined(NX_SECURE_ENABLE_ECC_CIPHERSUITE))
