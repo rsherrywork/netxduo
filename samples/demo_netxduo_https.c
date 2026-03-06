@@ -1,22 +1,22 @@
 /***************************************************************************
  * Copyright (c) 2024 Microsoft Corporation
- * Copyright (c) 2025 Eclipse ThreadX contributors 
- * 
+ * Copyright (c) 2025 Eclipse ThreadX contributors
+ *
  * This program and the accompanying materials are made available under the
  * terms of the MIT License which is available at
  * https://opensource.org/licenses/MIT.
- * 
+ *
  * SPDX-License-Identifier: MIT
  **************************************************************************/
 
-/* This is a small demo of the NetX Web HTTP Client/Server API running on a 
+/* This is a small demo of the NetX Web HTTP Client/Server API running on a
    high-performance NetX TCP/IP stack.  */
 /* This demo works for IPv4 only */
 
 #include "tx_api.h"
 #include "nx_api.h"
 /* If not using FileX, define this option and define the file writing services
-   declared in filex_stub.h.    
+   declared in filex_stub.h.
 #define NX_WEB_HTTP_NO_FILEX
 */
 #ifndef NX_WEB_HTTP_NO_FILEX
@@ -482,7 +482,7 @@ UINT  authentication_check(NX_WEB_HTTP_SERVER *server_ptr, UINT request_type,
     NX_PARAMETER_NOT_USED(request_type);
     NX_PARAMETER_NOT_USED(resource);
 
-    /* Just use a simple name, password, and realm for all 
+    /* Just use a simple name, password, and realm for all
        requests and resources.  */
     *name =     "name";
     *password = "password";
@@ -530,7 +530,7 @@ UINT status;
 }
 #endif
 
-/* Callback invoked when HTTP(S) client processes a response header. This 
+/* Callback invoked when HTTP(S) client processes a response header. This
    example shows how the HTTP headers are extracted. */
 VOID http_response_callback(NX_WEB_HTTP_CLIENT *client_ptr, CHAR *field_name, UINT field_name_length,
                             CHAR *field_value, UINT field_value_length)
@@ -675,7 +675,7 @@ ULONG           bytes;
 
 /************* HTTP(S) Server *************************/
 
-/* Server request callback is invoked whenever an HTTP(S) client 
+/* Server request callback is invoked whenever an HTTP(S) client
    sends a request to the server port. */
 UINT server_request_callback(NX_WEB_HTTP_SERVER *server_ptr, UINT request_type, CHAR *resource, NX_PACKET *packet_ptr)
 {
@@ -728,10 +728,10 @@ UINT            server_port;
     NX_PARAMETER_NOT_USED(thread_input);
 
    /* Format the RAM disk - the memory for the RAM disk was setup in
-      tx_application_define above. 
+      tx_application_define above.
 
       Important Note: The user must ensure there is enough RAM for the format
-                      specified.  Otherwise, memory corruption can occur. 
+                      specified.  Otherwise, memory corruption can occur.
    */
     status = fx_media_format(&ram_disk,
                     _fx_ram_driver,               // Driver entry
@@ -746,7 +746,7 @@ UINT            server_port;
                     SECTOR_SIZE,                  // Sector size
                     8,                            // Sectors per cluster
                     1,                            // Heads
-                    1);                           // Sectors per track   
+                    1);                           // Sectors per track
     
     /* Determine if the RAM disk format was successful.  */
     if (status != FX_SUCCESS)

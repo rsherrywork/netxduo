@@ -1,11 +1,11 @@
 /***************************************************************************
- * Copyright (c) 2024 Microsoft Corporation 
+ * Copyright (c) 2024 Microsoft Corporation
  * Copyright (c) 2025-present Eclipse ThreadX Contributors
- * 
+ *
  * This program and the accompanying materials are made available under the
  * terms of the MIT License which is available at
  * https://opensource.org/licenses/MIT.
- * 
+ *
  * SPDX-License-Identifier: MIT
  **************************************************************************/
 
@@ -38,18 +38,6 @@
 /*    It is assumed that nx_api.h and nx_port.h have already been         */
 /*    included, along with fx_api.h and fx_port.h. If HTTPS is being used */
 /*    then nx_secure_tls_api.h must also be included.                     */
-/*                                                                        */
-/*  RELEASE HISTORY                                                       */
-/*                                                                        */
-/*    DATE              NAME                      DESCRIPTION             */
-/*                                                                        */
-/*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
-/*  09-30-2020     Yuxin Zhou               Modified comment(s),          */
-/*                                            resulting in version 6.1    */
-/*  04-02-2021     Yuxin Zhou               Modified comment(s), and      */
-/*                                            improved the logic of       */
-/*                                            parsing base64,             */
-/*                                            resulting in version 6.1.6  */
 /*                                                                        */
 /**************************************************************************/
 
@@ -95,11 +83,11 @@ extern   "C" {
 #define NX_WEB_HTTP_MAX_PASSWORD                20
 #endif
   
-/* To enabled HTTPS, define this symbol 
+/* To enabled HTTPS, define this symbol
 #define NX_WEB_HTTPS_ENABLE
 */
 
-/* To enable MD5 digest authentication, define this symbol 
+/* To enable MD5 digest authentication, define this symbol
 #define NX_WEB_HTTP_DIGEST_ENABLE
 */    
 

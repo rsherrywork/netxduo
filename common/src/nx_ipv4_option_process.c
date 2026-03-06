@@ -1,11 +1,11 @@
 /***************************************************************************
- * Copyright (c) 2024 Microsoft Corporation 
+ * Copyright (c) 2024 Microsoft Corporation
  * Copyright (c) 2025-present Eclipse ThreadX Contributors
- * 
+ *
  * This program and the accompanying materials are made available under the
  * terms of the MIT License which is available at
  * https://opensource.org/licenses/MIT.
- * 
+ *
  * SPDX-License-Identifier: MIT
  **************************************************************************/
 
@@ -60,14 +60,6 @@
 /*  CALLED BY                                                             */
 /*                                                                        */
 /*    _nx_ipv4_packet_receive               Main IPv4 packet receive      */
-/*                                                                        */
-/*  RELEASE HISTORY                                                       */
-/*                                                                        */
-/*    DATE              NAME                      DESCRIPTION             */
-/*                                                                        */
-/*  05-19-2020     Yuxin Zhou               Initial Version 6.0           */
-/*  09-30-2020     Yuxin Zhou               Modified comment(s),          */
-/*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nx_ipv4_option_process(NX_IP *ip_ptr, NX_PACKET *packet_ptr)
@@ -233,7 +225,7 @@ UINT            op_timestamp_counter = 0;
         op_length = *(option_ptr + 1);
 
         /* Check for invalid option length.
-           RFC 791: The option-length octet counts the option-type octet and the 
+           RFC 791: The option-length octet counts the option-type octet and the
            option-length octet as well as the option-data octets.  */
         if ((op_length < 2) || ((index + op_length) > ip_option_length))
         {

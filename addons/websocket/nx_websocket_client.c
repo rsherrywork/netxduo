@@ -1,11 +1,11 @@
 /***************************************************************************
- * Copyright (c) 2024 Microsoft Corporation 
+ * Copyright (c) 2024 Microsoft Corporation
  * Copyright (c) 2025-present Eclipse ThreadX Contributors
- * 
+ *
  * This program and the accompanying materials are made available under the
  * terms of the MIT License which is available at
  * https://opensource.org/licenses/MIT.
- * 
+ *
  * SPDX-License-Identifier: MIT
  **************************************************************************/
 
@@ -85,12 +85,6 @@ NX_CALLER_CHECKING_EXTERNS
 /*                                                                        */
 /*    Application Code                                                    */
 /*                                                                        */
-/*  RELEASE HISTORY                                                       */
-/*                                                                        */
-/*    DATE              NAME                      DESCRIPTION             */
-/*                                                                        */
-/*  10-31-2022     Bo Chen                  Initial Version 6.2.0         */
-/*                                                                        */
 /**************************************************************************/
 UINT  _nxe_websocket_client_create(NX_WEBSOCKET_CLIENT *client_ptr, UCHAR *client_name, NX_IP *ip_ptr, NX_PACKET_POOL *pool_ptr)
 {
@@ -144,12 +138,6 @@ UINT        status;
 /*  CALLED BY                                                             */
 /*                                                                        */
 /*    Application Code                                                    */
-/*                                                                        */
-/*  RELEASE HISTORY                                                       */
-/*                                                                        */
-/*    DATE              NAME                      DESCRIPTION             */
-/*                                                                        */
-/*  10-31-2022     Bo Chen                  Initial Version 6.2.0         */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nx_websocket_client_create(NX_WEBSOCKET_CLIENT *client_ptr, UCHAR *client_name, NX_IP *ip_ptr, NX_PACKET_POOL *pool_ptr)
@@ -218,12 +206,6 @@ UINT status;
 /*                                                                        */
 /*    Application Code                                                    */
 /*                                                                        */
-/*  RELEASE HISTORY                                                       */
-/*                                                                        */
-/*    DATE              NAME                      DESCRIPTION             */
-/*                                                                        */
-/*  10-31-2022     Bo Chen                  Initial Version 6.2.0         */
-/*                                                                        */
 /**************************************************************************/
 UINT  _nxe_websocket_client_delete(NX_WEBSOCKET_CLIENT *client_ptr)
 {
@@ -272,12 +254,6 @@ UINT        status;
 /*  CALLED BY                                                             */
 /*                                                                        */
 /*    Application Code                                                    */
-/*                                                                        */
-/*  RELEASE HISTORY                                                       */
-/*                                                                        */
-/*    DATE              NAME                      DESCRIPTION             */
-/*                                                                        */
-/*  10-31-2022     Bo Chen                  Initial Version 6.2.0         */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nx_websocket_client_delete(NX_WEBSOCKET_CLIENT *client_ptr)
@@ -342,12 +318,6 @@ UINT  _nx_websocket_client_delete(NX_WEBSOCKET_CLIENT *client_ptr)
 /*  CALLED BY                                                             */
 /*                                                                        */
 /*    Application Code                                                    */
-/*                                                                        */
-/*  RELEASE HISTORY                                                       */
-/*                                                                        */
-/*    DATE              NAME                      DESCRIPTION             */
-/*                                                                        */
-/*  10-31-2022     Bo Chen                  Initial Version 6.2.0         */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nxe_websocket_client_connect(NX_WEBSOCKET_CLIENT *client_ptr, NX_TCP_SOCKET *socket_ptr,
@@ -417,12 +387,6 @@ UINT        status;
 /*  CALLED BY                                                             */
 /*                                                                        */
 /*    Application Code                                                    */
-/*                                                                        */
-/*  RELEASE HISTORY                                                       */
-/*                                                                        */
-/*    DATE              NAME                      DESCRIPTION             */
-/*                                                                        */
-/*  10-31-2022     Bo Chen                  Initial Version 6.2.0         */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nx_websocket_client_connect(NX_WEBSOCKET_CLIENT *client_ptr, NX_TCP_SOCKET *socket_ptr,
@@ -526,12 +490,6 @@ UINT status;
 /*    _nx_websocket_client_secure_connect   Make secure websocket         */
 /*                                            connection                  */
 /*                                                                        */
-/*  RELEASE HISTORY                                                       */
-/*                                                                        */
-/*    DATE              NAME                      DESCRIPTION             */
-/*                                                                        */
-/*  10-31-2022     Bo Chen                  Initial Version 6.2.0         */
-/*                                                                        */
 /**************************************************************************/
 UINT  _nx_websocket_client_connect_internal(NX_WEBSOCKET_CLIENT *client_ptr,
                                             UCHAR *host, UINT host_length,
@@ -567,7 +525,7 @@ NX_PACKET *packet_ptr;
     if (client_ptr -> nx_websocket_client_use_tls)
     {
 
-        /* Use TLS packet allocate.  The TLS packet allocate is able to count for 
+        /* Use TLS packet allocate.  The TLS packet allocate is able to count for
            TLS-related header space including crypto initial vector area. */
         status = nx_secure_tls_packet_allocate(client_ptr -> nx_websocket_client_tls_session_ptr,
                                                client_ptr -> nx_websocket_client_packet_pool_ptr,
@@ -767,12 +725,6 @@ NX_PACKET *packet_ptr;
 /*                                                                        */
 /*    Application Code                                                    */
 /*                                                                        */
-/*  RELEASE HISTORY                                                       */
-/*                                                                        */
-/*    DATE              NAME                      DESCRIPTION             */
-/*                                                                        */
-/*  10-31-2022     Bo Chen                  Initial Version 6.2.0         */
-/*                                                                        */
 /**************************************************************************/
 UINT  _nxe_websocket_client_secure_connect(NX_WEBSOCKET_CLIENT *client_ptr, NX_SECURE_TLS_SESSION *tls_session,
                                            UCHAR *host, UINT host_length,
@@ -841,12 +793,6 @@ UINT        status;
 /*  CALLED BY                                                             */
 /*                                                                        */
 /*    Application Code                                                    */
-/*                                                                        */
-/*  RELEASE HISTORY                                                       */
-/*                                                                        */
-/*    DATE              NAME                      DESCRIPTION             */
-/*                                                                        */
-/*  10-31-2022     Bo Chen                  Initial Version 6.2.0         */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nx_websocket_client_secure_connect(NX_WEBSOCKET_CLIENT *client_ptr, NX_SECURE_TLS_SESSION *tls_session,
@@ -931,12 +877,6 @@ UINT status;
 /*    _nx_websocket_client_connect_response_process                       */
 /*                                          Process connect response      */
 /*                                                                        */
-/*  RELEASE HISTORY                                                       */
-/*                                                                        */
-/*    DATE              NAME                      DESCRIPTION             */
-/*                                                                        */
-/*  10-31-2022     Bo Chen                  Initial Version 6.2.0         */
-/*                                                                        */
 /**************************************************************************/
 UINT  _nx_websocket_client_name_compare(UCHAR *src, ULONG src_length, UCHAR *dest, ULONG dest_length)
 {
@@ -1014,12 +954,6 @@ UCHAR   ch;
 /*    _nx_websocket_client_connect_response_check                         */
 /*                                          Check connect response        */
 /*                                                                        */
-/*  RELEASE HISTORY                                                       */
-/*                                                                        */
-/*    DATE              NAME                      DESCRIPTION             */
-/*                                                                        */
-/*  10-31-2022     Bo Chen                  Initial Version 6.2.0         */
-/*                                                                        */
 /**************************************************************************/
 UINT  _nx_websocket_client_connect_response_process(NX_WEBSOCKET_CLIENT *client_ptr, NX_PACKET *packet_ptr)
 {
@@ -1083,7 +1017,7 @@ UCHAR   accept_cnt = 0;
     while (((buffer_ptr + 1) < packet_ptr -> nx_packet_append_ptr) && (*buffer_ptr != 0))
     {
 
-        /* Check for the <cr,lf,cr,lf> token.  This signals a blank line, which also 
+        /* Check for the <cr,lf,cr,lf> token.  This signals a blank line, which also
            specifies the start of the content.  */
         if ((*buffer_ptr == '\r') &&
             (*(buffer_ptr + 1) ==  '\n'))
@@ -1224,12 +1158,6 @@ UCHAR   accept_cnt = 0;
 /*                                                                        */
 /*    Application Code                                                    */
 /*                                                                        */
-/*  RELEASE HISTORY                                                       */
-/*                                                                        */
-/*    DATE              NAME                      DESCRIPTION             */
-/*                                                                        */
-/*  10-31-2022     Bo Chen                  Initial Version 6.2.0         */
-/*                                                                        */
 /**************************************************************************/
 UINT  _nxe_websocket_client_disconnect(NX_WEBSOCKET_CLIENT *client_ptr, UINT wait_option)
 {
@@ -1283,12 +1211,6 @@ UINT        status;
 /*  CALLED BY                                                             */
 /*                                                                        */
 /*    Application Code                                                    */
-/*                                                                        */
-/*  RELEASE HISTORY                                                       */
-/*                                                                        */
-/*    DATE              NAME                      DESCRIPTION             */
-/*                                                                        */
-/*  10-31-2022     Bo Chen                  Initial Version 6.2.0         */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nx_websocket_client_disconnect(NX_WEBSOCKET_CLIENT *client_ptr, UINT wait_option)
@@ -1382,12 +1304,6 @@ NX_PACKET  *packet_ptr;
 /*                                                                        */
 /*    Application Code                                                    */
 /*                                                                        */
-/*  RELEASE HISTORY                                                       */
-/*                                                                        */
-/*    DATE              NAME                      DESCRIPTION             */
-/*                                                                        */
-/*  10-31-2022     Bo Chen                  Initial Version 6.2.0         */
-/*                                                                        */
 /**************************************************************************/
 UINT  _nxe_websocket_client_send(NX_WEBSOCKET_CLIENT *client_ptr, NX_PACKET *packet_ptr, UINT code, UINT is_final, UINT wait_option)
 {
@@ -1442,12 +1358,6 @@ UINT        status;
 /*  CALLED BY                                                             */
 /*                                                                        */
 /*    Application Code                                                    */
-/*                                                                        */
-/*  RELEASE HISTORY                                                       */
-/*                                                                        */
-/*    DATE              NAME                      DESCRIPTION             */
-/*                                                                        */
-/*  10-31-2022     Bo Chen                  Initial Version 6.2.0         */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nx_websocket_client_send(NX_WEBSOCKET_CLIENT *client_ptr, NX_PACKET *packet_ptr, UINT code, UINT is_final, UINT wait_option)
@@ -1612,12 +1522,6 @@ UINT header_size = NX_WEBSOCKET_HEADER_NORMAL_SIZE;
 /*                                                                        */
 /*    Application Code                                                    */
 /*                                                                        */
-/*  RELEASE HISTORY                                                       */
-/*                                                                        */
-/*    DATE              NAME                      DESCRIPTION             */
-/*                                                                        */
-/*  10-31-2022     Bo Chen                  Initial Version 6.2.0         */
-/*                                                                        */
 /**************************************************************************/
 UINT  _nxe_websocket_client_receive(NX_WEBSOCKET_CLIENT *client_ptr, NX_PACKET **packet_ptr, UINT *code, UINT wait_option)
 {
@@ -1674,12 +1578,6 @@ UINT        status;
 /*  CALLED BY                                                             */
 /*                                                                        */
 /*    Application Code                                                    */
-/*                                                                        */
-/*  RELEASE HISTORY                                                       */
-/*                                                                        */
-/*    DATE              NAME                      DESCRIPTION             */
-/*                                                                        */
-/*  10-31-2022     Bo Chen                  Initial Version 6.2.0         */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nx_websocket_client_receive(NX_WEBSOCKET_CLIENT *client_ptr, NX_PACKET **packet_ptr, UINT *code, UINT wait_option)
@@ -1815,12 +1713,6 @@ UINT        status = NX_SUCCESS;
 /*  CALLED BY                                                             */
 /*                                                                        */
 /*    _nx_websocket_client_receive          Receive websocket data        */
-/*                                                                        */
-/*  RELEASE HISTORY                                                       */
-/*                                                                        */
-/*    DATE              NAME                      DESCRIPTION             */
-/*                                                                        */
-/*  10-31-2022     Bo Chen                  Initial Version 6.2.0         */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nx_websocket_client_data_process(NX_WEBSOCKET_CLIENT *client_ptr, NX_PACKET **packet_ptr, UINT *code)
@@ -2290,12 +2182,6 @@ UCHAR *data_ptr;
 /*                                                                        */
 /*    _nx_websocket_client_data_process     Process data frame            */
 /*                                                                        */
-/*  RELEASE HISTORY                                                       */
-/*                                                                        */
-/*    DATE              NAME                      DESCRIPTION             */
-/*                                                                        */
-/*  10-31-2022     Bo Chen                  Initial Version 6.2.0         */
-/*                                                                        */
 /**************************************************************************/
 UINT  _nx_websocket_client_packet_trim(NX_WEBSOCKET_CLIENT *client_ptr, NX_PACKET **packet_ptr, ULONG trim_size)
 {
@@ -2387,12 +2273,6 @@ NX_PACKET   *previous_packet_ptr = NX_NULL;
 /*                                                                        */
 /*    Application Code                                                    */
 /*                                                                        */
-/*  RELEASE HISTORY                                                       */
-/*                                                                        */
-/*    DATE              NAME                      DESCRIPTION             */
-/*                                                                        */
-/*  10-31-2022     Bo Chen                  Initial Version 6.2.0         */
-/*                                                                        */
 /**************************************************************************/
 UINT  _nxe_websocket_client_packet_allocate(NX_WEBSOCKET_CLIENT *client_ptr, NX_PACKET **packet_ptr, ULONG wait_option)
 {
@@ -2447,12 +2327,6 @@ UINT        status;
 /*                                                                        */
 /*    Application Code                                                    */
 /*                                                                        */
-/*  RELEASE HISTORY                                                       */
-/*                                                                        */
-/*    DATE              NAME                      DESCRIPTION             */
-/*                                                                        */
-/*  10-31-2022     Bo Chen                  Initial Version 6.2.0         */
-/*                                                                        */
 /**************************************************************************/
 UINT  _nx_websocket_client_packet_allocate(NX_WEBSOCKET_CLIENT *client_ptr, NX_PACKET **packet_ptr, ULONG wait_option)
 {
@@ -2464,7 +2338,7 @@ UINT        status;
     if (client_ptr -> nx_websocket_client_use_tls)
     {
 
-        /* Use TLS packet allocate.  The TLS packet allocate is able to count for 
+        /* Use TLS packet allocate.  The TLS packet allocate is able to count for
            TLS-related header space including crypto initial vector area. */
         status = nx_secure_tls_packet_allocate(client_ptr -> nx_websocket_client_tls_session_ptr,
                                                client_ptr -> nx_websocket_client_packet_pool_ptr,
@@ -2546,12 +2420,6 @@ UINT        status;
 /*    _nx_websocket_client_connect_internal Make websocket connection     */
 /*    _nx_websocket_client_send             Send websocket data frame     */
 /*                                                                        */
-/*  RELEASE HISTORY                                                       */
-/*                                                                        */
-/*    DATE              NAME                      DESCRIPTION             */
-/*                                                                        */
-/*  10-31-2022     Bo Chen                  Initial Version 6.2.0         */
-/*                                                                        */
 /**************************************************************************/
 UINT  _nx_websocket_client_packet_send(NX_WEBSOCKET_CLIENT *client_ptr, NX_PACKET *packet_ptr, ULONG wait_option)
 {
@@ -2607,12 +2475,6 @@ UINT status;
 /*                                                                        */
 /*    _nx_websocket_client_connect_internal Make websocket connection     */
 /*    _nx_websocket_client_receive          Receive websocket data frame  */
-/*                                                                        */
-/*  RELEASE HISTORY                                                       */
-/*                                                                        */
-/*    DATE              NAME                      DESCRIPTION             */
-/*                                                                        */
-/*  10-31-2022     Bo Chen                  Initial Version 6.2.0         */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nx_websocket_client_packet_receive(NX_WEBSOCKET_CLIENT *client_ptr, NX_PACKET **packet_ptr, ULONG wait_option)
@@ -2680,12 +2542,6 @@ UINT status;
 /*                                                                        */
 /*    _nx_websocket_client_connect_internal Make websocket connection     */
 /*    _nx_websocket_client_receive          Receive websocket data frame  */
-/*                                                                        */
-/*  RELEASE HISTORY                                                       */
-/*                                                                        */
-/*    DATE              NAME                      DESCRIPTION             */
-/*                                                                        */
-/*  10-31-2022     Bo Chen                  Initial Version 6.2.0         */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nx_websocket_client_connect_response_check(NX_WEBSOCKET_CLIENT *client_ptr, NX_PACKET *packet_ptr, UINT wait_option)
@@ -2868,12 +2724,6 @@ NX_PACKET *tmp_ptr;
 /*                                                                        */
 /*    Application Code                                                    */
 /*                                                                        */
-/*  RELEASE HISTORY                                                       */
-/*                                                                        */
-/*    DATE              NAME                      DESCRIPTION             */
-/*                                                                        */
-/*  10-31-2022     Bo Chen                  Initial Version 6.2.0         */
-/*                                                                        */
 /**************************************************************************/
 UINT  _nxe_websocket_client_connection_status_callback_set(NX_WEBSOCKET_CLIENT *client_ptr, VOID *context,
                                                            VOID (*connection_status_callback)(NX_WEBSOCKET_CLIENT *, VOID *, UINT))
@@ -2926,12 +2776,6 @@ UINT        status;
 /*  CALLED BY                                                             */
 /*                                                                        */
 /*    Application Code                                                    */
-/*                                                                        */
-/*  RELEASE HISTORY                                                       */
-/*                                                                        */
-/*    DATE              NAME                      DESCRIPTION             */
-/*                                                                        */
-/*  10-31-2022     Bo Chen                  Initial Version 6.2.0         */
 /*                                                                        */
 /**************************************************************************/
 UINT  _nx_websocket_client_connection_status_callback_set(NX_WEBSOCKET_CLIENT *client_ptr, VOID *context,
@@ -2986,12 +2830,6 @@ UINT  _nx_websocket_client_connection_status_callback_set(NX_WEBSOCKET_CLIENT *c
 /*    _nx_websocket_client_connect_response_check                         */
 /*                                          Check connect response        */
 /*    _nx_websocket_client_connect_internal Make websocket connection     */
-/*                                                                        */
-/*  RELEASE HISTORY                                                       */
-/*                                                                        */
-/*    DATE              NAME                      DESCRIPTION             */
-/*                                                                        */
-/*  10-31-2022     Bo Chen                  Initial Version 6.2.0         */
 /*                                                                        */
 /**************************************************************************/
 void  _nx_websocket_client_cleanup(NX_WEBSOCKET_CLIENT *client_ptr)
